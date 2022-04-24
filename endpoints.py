@@ -8,7 +8,7 @@ router = APIRouter()
 
 @router.get("/fibonacci")
 def fibonacci(n: int = Query(1, description='Number of a member of Fibonacci sequence', gt=1)):
-    return lib_math.fib(n)
+    return lib_math.fib_generator(n)
 
 
 @router.post("/ackerman")
@@ -19,7 +19,7 @@ def ackerman(m: int = Query(0, lt=4, gt=0), n: int = Query(0, gt=0)):
 
 @router.get("/factorial")
 def factorial(n: int = Query(0, description='Non-negative number to calculate its factorial', gt=0)):
-    return lib_math.fact_recursive(n)
+    return lib_math.fact_generator(n)
 
 
 @router.get("/", include_in_schema=False)

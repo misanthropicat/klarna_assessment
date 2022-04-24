@@ -13,9 +13,14 @@ def test_fact_iterative_generator(n, exp):
     assert lib_math.fact_generator(n) == exp
 
 
-@pytest.mark.parametrize("n, exp", fib_testdata)
-def test_fib(n, exp):
-    assert lib_math.fib(n) == exp
+@pytest.mark.parametrize("n, exp", minimal_fib_testdata)
+def test_fib_recursive(n, exp):
+    assert lib_math.fib_recursive(n) == exp
+
+
+@pytest.mark.parametrize("n, exp", minimal_fib_testdata + additional_fib_testdata)
+def test_fib_iterative_generator(n, exp):
+    assert lib_math.fib_generator(n) == exp
 
 
 @pytest.mark.parametrize("m, n, exp", minimal_ack_testdata)
