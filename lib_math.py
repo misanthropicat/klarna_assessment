@@ -147,7 +147,7 @@ def ack_mathematical(m: int, n: int):
     elif m == 2:
         return 2*n + 3
     elif m == 3:
-        return 8*2**n - 3
+        return 2**(n + 3) - 3
     elif n == 0:
         return ack_mathematical(m - 1, 1)
     else:
