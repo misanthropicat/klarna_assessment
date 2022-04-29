@@ -3,11 +3,7 @@ import sys
 import logging
 
 sys.setrecursionlimit(20000)
-logger = logging.getLogger(__file__)
-file_handler = logging.Handler('DEBUG')
-console_handler = logging.Handler('INFO')
-logger.addHandler(file_handler)
-logger.addHandler(console_handler)
+logger = logging.getLogger(__name__)
 
 
 def memoize(func):
