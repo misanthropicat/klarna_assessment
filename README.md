@@ -28,3 +28,12 @@ In project root directory execute the following command:
 `docker-compose up`
 
 In browser navigate to `localhost:8080` to see the swagger.
+
+#### Running in the public cloud
+
+For political reasons beyond my control I'm able only to describe proposal for cloud deployment of this application.
+Would be good to check it by creating a PoC.
+
+Proposed using [AWS Elastic Beanstalk](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/GettingStarted.CreateApp.html).
+
+Python or Docker can be used as a platform.

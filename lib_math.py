@@ -121,6 +121,7 @@ def fib_generator(n: int):
     return next(fib(n))
 
 
+@clock
 @memoize
 def ack_recursive(m: int, n: int):
     """
