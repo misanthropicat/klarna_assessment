@@ -3,7 +3,7 @@ disable_existing_loggers: False
 formatters:
   default:
     "()": uvicorn.logging.DefaultFormatter
-    format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    format: '%(asctime)s - %(name)s: %(levelname)s - %(funcName)s - %(message)s'
   access:
     "()": uvicorn.logging.AccessFormatter
     format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
@@ -40,5 +40,5 @@ loggers:
     level: DEBUG
     handlers: [default, file]
   math_app:
-    level: WARNING
+    level: INFO
     handlers: [default, file]

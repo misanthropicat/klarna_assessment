@@ -74,7 +74,7 @@ def fact_recursive(n: int):
 
 
 @clock
-def fact_generator(n: int):
+async def fact_generator(n: int):
     """
     Solution with generator for factorial of n
     """
@@ -113,8 +113,7 @@ def fib(n: int):
         yield result
 
 
-@clock
-def fib_generator(n: int):
+async def fib_generator(n: int):
     """
     Solution with generator for n-th member of Fibonacci sequence
     """
@@ -123,7 +122,7 @@ def fib_generator(n: int):
 
 @clock
 @memoize
-def ack_recursive(m: int, n: int):
+async def ack_recursive(m: int, n: int):
     """
     Calculates Ackermann function for m and n recursively
     """
@@ -135,8 +134,7 @@ def ack_recursive(m: int, n: int):
         return ack_recursive(m - 1, ack_recursive(m, n - 1))
 
 
-@clock
-def ack_mathematical(m: int, n: int):
+async def ack_mathematical(m: int, n: int):
     """
     Calculates Ackermann function for m and n mathematically
     :return:
@@ -150,6 +148,6 @@ def ack_mathematical(m: int, n: int):
     elif m == 3:
         return 2**(n + 3) - 3
     elif n == 0:
-        return ack_mathematical(m - 1, 1)
+        return await ack_mathematical(m - 1, 1)
     else:
-        return ack_mathematical(m - 1, ack_mathematical(m, n - 1))
+        return await ack_mathematical(m - 1, await ack_mathematical(m, n - 1))
