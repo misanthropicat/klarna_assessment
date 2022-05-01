@@ -39,6 +39,3 @@ loggers:
   lib_math:
     level: DEBUG
     handlers: [default, file]
-  math_app:
-    level: INFO
-    handlers: [default, file]

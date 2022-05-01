@@ -34,8 +34,14 @@ async def factorial(n: int = Query(0, description='Non-negative number to calcul
     lib_math.logger.info('STARTED: %s(%s)', router.url_path_for('factorial'), n)
     result = await lib_math.fact_generator(n)
     elapsed = time.time() - start
-    lib_math.logger.info('DONE: [%0.8fs] %s(%s)' % (elapsed, router.url_path_for('factorial'), n))
+    lib_math.logger.info('DONE: [%0.8fs] %s(%s)', elapsed, router.url_path_for('factorial'), n)
     return JSONResponse(content=str(result))
+
+
+@router.get('/sync_factorial')
+def sync_factorial(n: int = Query(0, description='Non-negative number to calculate its factorial', ge=0)):
+    result = lib_math.fact_recursive(n)
+    return JSONResponse(content=result)
 
 
 @router.get("/", include_in_schema=False)

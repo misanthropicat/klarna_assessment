@@ -15,14 +15,15 @@ def memoize(func):
 
     def decorate(*args):
         nonlocal counter
-        logger.debug(f'recursion counter={counter}')
+        arg_list = [repr(arg) for arg in args]
+        arg_str = ','.join(arg_list)
         if args in cache.keys():
-            logger.debug(f'{func.__name__} result for args {args} is found in cache: {cache[args]}')
+            logger.debug('%s result for args %s is found in cache: %s', func.__name__, arg_str, cache[args])
             return cache[args]
         else:
             counter += 1
             cache[args] = func(*args)
-            logger.debug(f'{func.__name__}: result {cache[args]} for args {args} is added to cache')
+            logger.debug('%s result for args %s is added to cache: %s', func.__name__, arg_str, cache[args])
             return cache[args]
     return decorate
 
@@ -33,17 +34,18 @@ def clock(func):
     """
     def decorate(*args, **kwargs):
         start_time = time.time()
+        name = func.__name__
+        if args:
+            arg_list = [repr(arg) for arg in args]
+        elif kwargs:
+            arg_list = ['%s=%r' % (k, w) for k, w in sorted(kwargs.items())]
+        else:
+            arg_list = []
+        arg_str = ','.join(arg_list)
+        logger.info('STARTED: %s(%s)', name, arg_str)
         result = func(*args, **kwargs)
         elapsed = time.time() - start_time
-        name = func.__name__
-        arg_list = []
-        if args:
-            arg_list.append(', '.join(repr(arg) for arg in args))
-        if kwargs:
-            pairs = ['%s=%r' % (k, w) for k, w in sorted(kwargs.items())]
-            arg_list.append(', '.join(pairs))
-        arg_str = ', '.join(arg_list)
-        logger.info('[%0.8fs] %s(%s) -> %r' % (elapsed, name, arg_str, result))
+        logger.info('DONE: [%0.8fs] %s(%s)', elapsed, name, arg_str)
         return result
     return decorate
 
@@ -64,8 +66,8 @@ def fact(n: int):
     yield curr
 
 
-@clock
 @memoize
+@clock
 def fact_recursive(n: int):
     """
     Classical recursive solution for factorial of n
@@ -73,7 +75,6 @@ def fact_recursive(n: int):
     return n if n == 1 else n*fact_recursive(n-1)
 
 
-@clock
 async def fact_generator(n: int):
     """
     Solution with generator for factorial of n
@@ -81,8 +82,8 @@ async def fact_generator(n: int):
     return next(fact(n))
 
 
-@clock
 @memoize
+@clock
 def fib_recursive(n: int):
     """
     Classical recursive solution for finding a value of the certain Fibonacci sequence member
@@ -120,8 +121,8 @@ async def fib_generator(n: int):
     return next(fib(n))
 
 
-@clock
 @memoize
+@clock
 async def ack_recursive(m: int, n: int):
     """
     Calculates Ackermann function for m and n recursively
